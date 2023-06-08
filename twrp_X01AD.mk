@@ -14,11 +14,15 @@
 # limitations under the License.
 #
 
-# Inherit Target Product stuff
-$(call inherit-product, build/target/product/embedded.mk)
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product-if-exists, $(SRC_TARGET_DIR)/product/embedded.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
 
 # Inherit some common Omni stuff.
-$(call inherit-product, vendor/omni/config/common.mk)
+$(call inherit-product, vendor/twrp/config/common.mk)
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -30,7 +34,7 @@ PRODUCT_PACKAGES += \
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := X01AD
-PRODUCT_NAME := omni_X01AD
+PRODUCT_NAME := twrp_X01AD
 PRODUCT_BRAND := ASUS
 PRODUCT_MODEL := Zenfone Max M2
 PRODUCT_MANUFACTURER := ASUS
